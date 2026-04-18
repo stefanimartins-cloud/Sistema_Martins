@@ -4,22 +4,58 @@
  */
 package view;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author user
  */
-public class jDlgSlmFornecedores extends javax.swing.JDialog {
+public class JDlgSlmFornecedores extends javax.swing.JDialog {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(jDlgSlmFornecedores.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(JDlgSlmFornecedores.class.getName());
 
     /**
      * Creates new form jDlgSlmFornecedores
+     * @param parent
+     * @param modal
      */
-    public jDlgSlmFornecedores(java.awt.Frame parent, boolean modal) {
+    public JDlgSlmFornecedores(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        
+        habilitar(false);
     }
+    
+ public void habilitar(boolean valor) {
+    
+        jTxtRazaoSocial.setEnabled(valor);
+        jFmtCnpj.setEnabled(valor);
+        jTxtFantasia.setEnabled(valor);
+        jTxtIncricaoEstadual.setEnabled(valor);
+        jFmtTelefone.setEnabled(valor);
+        jFmtCelular.setEnabled(valor);
+        jFmtEmail.setEnabled(valor);
+        jFmtCep.setEnabled(valor);
+        jTxtEndereco.setEnabled(valor);
+        jTxtNumero.setEnabled(valor);
+        jTxtBairro.setEnabled(valor);
+        jTxtCidade.setEnabled(valor);
+        jTxtComplemento.setEnabled(valor);
+        jCboEstado.setEnabled(valor);
+        jChbAtivo.setEnabled(valor);
+        
+        
+    jBtnConfirmar.setEnabled(valor);
+    jBtnCancelar.setEnabled(valor);
 
+    jBtnIncluir.setEnabled(!valor);
+    jBtnAlterar.setEnabled(!valor);
+    jBtnExcluir.setEnabled(!valor);
+    jBtnPesquisar.setEnabled(!valor);
+ 
+ }
+ 
+ 
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -54,7 +90,7 @@ public class jDlgSlmFornecedores extends javax.swing.JDialog {
         jTxtBairro = new javax.swing.JTextField();
         jTxtCidade = new javax.swing.JTextField();
         jLabelEstado = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jCboEstado = new javax.swing.JComboBox<>();
         jLabelComplemento = new javax.swing.JLabel();
         jTxtComplemento = new javax.swing.JTextField();
         jChbAtivo = new javax.swing.JCheckBox();
@@ -69,7 +105,11 @@ public class jDlgSlmFornecedores extends javax.swing.JDialog {
 
         jLabelRazaoSocial.setText("Razao Social ");
 
+        jTxtRazaoSocial.addActionListener(this::jTxtRazaoSocialActionPerformed);
+
         jLabel1.setText("Fantasia");
+
+        jTxtFantasia.addActionListener(this::jTxtFantasiaActionPerformed);
 
         jLabelCnpj.setText("CNPJ");
 
@@ -93,7 +133,7 @@ public class jDlgSlmFornecedores extends javax.swing.JDialog {
 
         jLabelEstado.setText("Estado");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO" }));
+        jCboEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO" }));
 
         jLabelComplemento.setText("Complemento");
 
@@ -101,21 +141,27 @@ public class jDlgSlmFornecedores extends javax.swing.JDialog {
 
         jBtnIncluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/imagens/incluir.png"))); // NOI18N
         jBtnIncluir.setText("Incluir");
+        jBtnIncluir.addActionListener(this::jBtnIncluirActionPerformed);
 
         jBtnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/imagens/alterar_1.png"))); // NOI18N
         jBtnAlterar.setText("Alterar");
+        jBtnAlterar.addActionListener(this::jBtnAlterarActionPerformed);
 
         jBtnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/imagens/Excluir_1.png"))); // NOI18N
         jBtnExcluir.setText("Excluir");
+        jBtnExcluir.addActionListener(this::jBtnExcluirActionPerformed);
 
         jBtnConfirmar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/imagens/confirmar.png"))); // NOI18N
         jBtnConfirmar.setText("Confirmar");
+        jBtnConfirmar.addActionListener(this::jBtnConfirmarActionPerformed);
 
         jBtnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/imagens/cancelar_1.png"))); // NOI18N
         jBtnCancelar.setText("Cancelar");
+        jBtnCancelar.addActionListener(this::jBtnCancelarActionPerformed);
 
         jBtnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/imagens/pesquisar_1.png"))); // NOI18N
         jBtnPesquisar.setText("Pesquisar");
+        jBtnPesquisar.addActionListener(this::jBtnPesquisarActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -127,7 +173,7 @@ public class jDlgSlmFornecedores extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jCboEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jChbAtivo))
                             .addComponent(jLabelEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -233,7 +279,7 @@ public class jDlgSlmFornecedores extends javax.swing.JDialog {
                     .addComponent(jLabelComplemento))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCboEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTxtComplemento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jChbAtivo))
                 .addGap(18, 18, 18)
@@ -251,6 +297,44 @@ public class jDlgSlmFornecedores extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTxtRazaoSocialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtRazaoSocialActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTxtRazaoSocialActionPerformed
+
+    private void jBtnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirActionPerformed
+        // TODO add your handling code here:
+        habilitar(true);
+    }//GEN-LAST:event_jBtnIncluirActionPerformed
+
+    private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
+        // TODO add your handling code here:
+         habilitar(true);
+    }//GEN-LAST:event_jBtnAlterarActionPerformed
+
+    private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed
+        // TODO add your handling code here:
+        JOptionPane.showConfirmDialog(null, "Confirmar e exclusão");
+    }//GEN-LAST:event_jBtnExcluirActionPerformed
+
+    private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed
+        // TODO add your handling code here:
+        habilitar(false);
+    }//GEN-LAST:event_jBtnConfirmarActionPerformed
+
+    private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
+        // TODO add your handling code here:
+        habilitar(false);
+    }//GEN-LAST:event_jBtnCancelarActionPerformed
+
+    private void jTxtFantasiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtFantasiaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTxtFantasiaActionPerformed
+
+    private void jBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPesquisarActionPerformed
+        // TODO add your handling code here:
+          JOptionPane.showConfirmDialog(null, "Entre com a chave primária");
+    }//GEN-LAST:event_jBtnPesquisarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -274,18 +358,15 @@ public class jDlgSlmFornecedores extends javax.swing.JDialog {
         //</editor-fold>
 
         /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                jDlgSlmFornecedores dialog = new jDlgSlmFornecedores(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            JDlgSlmFornecedores dialog = new JDlgSlmFornecedores(new javax.swing.JFrame(), true);
+            dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosing(java.awt.event.WindowEvent e) {
+                    System.exit(0);
+                }
+            });
+            dialog.setVisible(true);
         });
     }
 
@@ -296,8 +377,8 @@ public class jDlgSlmFornecedores extends javax.swing.JDialog {
     private javax.swing.JButton jBtnExcluir;
     private javax.swing.JButton jBtnIncluir;
     private javax.swing.JButton jBtnPesquisar;
+    private javax.swing.JComboBox<String> jCboEstado;
     private javax.swing.JCheckBox jChbAtivo;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JFormattedTextField jFmtCelular;
     private javax.swing.JFormattedTextField jFmtCep;
     private javax.swing.JFormattedTextField jFmtCnpj;
@@ -320,19 +401,12 @@ public class jDlgSlmFornecedores extends javax.swing.JDialog {
     private javax.swing.JTextField jTxtBairro;
     private javax.swing.JTextField jTxtCidade;
     private javax.swing.JTextField jTxtComplemento;
-    private javax.swing.JTextField jTxtEmail;
-    private javax.swing.JTextField jTxtEmail1;
-    private javax.swing.JTextField jTxtEmail2;
-    private javax.swing.JTextField jTxtEmail3;
-    private javax.swing.JTextField jTxtEmail4;
-    private javax.swing.JTextField jTxtEmail5;
-    private javax.swing.JTextField jTxtEmail6;
-    private javax.swing.JTextField jTxtEmail7;
-    private javax.swing.JTextField jTxtEmail8;
     private javax.swing.JTextField jTxtEndereco;
     private javax.swing.JTextField jTxtFantasia;
     private javax.swing.JTextField jTxtIncricaoEstadual;
     private javax.swing.JTextField jTxtNumero;
     private javax.swing.JTextField jTxtRazaoSocial;
     // End of variables declaration//GEN-END:variables
+
+ 
 }
